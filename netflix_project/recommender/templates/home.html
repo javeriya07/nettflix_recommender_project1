@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Netflix Recommender</title>
+
+<style>
+
+body{
+background:#141414;
+color:white;
+font-family:Arial;
+text-align:center;
+}
+
+h1{
+color:#E50914;
+font-size:50px;
+margin-top:30px;
+}
+
+form{
+margin-top:40px;
+}
+
+input{
+padding:12px;
+width:300px;
+border:none;
+border-radius:5px;
+font-size:16px;
+}
+
+button{
+padding:12px 20px;
+background:#E50914;
+border:none;
+color:white;
+font-size:16px;
+border-radius:5px;
+cursor:pointer;
+}
+
+.movie-grid{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:30px;
+margin-top:40px;
+}
+
+.movie-card{
+width:200px;
+transition:0.3s;
+}
+
+.movie-card:hover{
+transform:scale(1.1);
+}
+
+.movie-card img{
+width:200px;
+border-radius:10px;
+}
+
+.movie-title{
+margin-top:10px;
+font-size:16px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>NETFLIX</h1>
+
+<form method="POST">
+
+{% csrf_token %}
+
+<input list="movies" name="movie" placeholder="Search a movie">
+
+<datalist id="movies">
+
+{% for movie in movies %}
+
+<option value="{{movie}}">
+
+{% endfor %}
+
+</datalist>
+
+<button type="submit">Recommend</button>
+
+</form>
+
+
+<div class="movie-grid">
+
+{% for name,poster in movie_data %}
+
+<div class="movie-card">
+
+<img src="{{poster}}">
+
+<div class="movie-title">{{name}}</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</body>
+</html>
